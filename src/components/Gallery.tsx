@@ -9,6 +9,16 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       flexGrow: 1,
     },
+    loadMore:{
+        padding:"10px",
+        backgroundColor:"#4080FF",
+        color:"white"
+    },
+    disabled:{
+        padding:"10px",
+        backgroundColor:"lightgrey",
+        color:"white"
+    }
   }),
 );
 export default function Gallery() {
@@ -38,7 +48,7 @@ export default function Gallery() {
                }         
                    
          </Grid>
-         <Button color="primary" onClick={()=>setCounter(counter+1)} disabled={counter>4} >
+         <Button className={counter>4 ? classes.disabled : classes.loadMore} color="primary" onClick={()=>setCounter(counter+1)} disabled={counter>4} >
                {counter>4 ? "Done loading" : "Load More"}
              </Button> 
          </div>
