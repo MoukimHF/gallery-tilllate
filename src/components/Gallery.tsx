@@ -12,12 +12,18 @@ const useStyles = makeStyles((theme: Theme) =>
     loadMore:{
         padding:"10px",
         backgroundColor:"#4080FF",
-        color:"white"
+        color:"white",
+        margin:"25px"
     },
     disabled:{
         padding:"10px",
         backgroundColor:"lightgrey",
-        color:"white"
+        color:"white",
+        margin:"25px"
+    },
+    img:{
+        objectFit:"contain",
+        width:"100%"
     }
   }),
 );
@@ -31,10 +37,9 @@ export default function Gallery() {
         // getting photos from the api using the axios library
         axios.get(apiConfig.baseURL).then(res=>setPhotos(res.data))
         // filtering just the albums with an even ID and the first image which has an id like this 51 , 151 , 251 ,351 ...
-        const fiftyPhotos = photos.filter((pic : any,index)=>pic.albumId % 2 ===0 && pic.id%50===1  )
-        setPhotos(fiftyPhotos);
-        console.log(fiftyPhotos)
-    
+        // we can also load images through the api using apiConfig.baseURL?albumId=..&id=.. but i choose using Array.filter
+        const fiftyPhotos = photos.filter((pic : any)=>pic.albumId % 2 ===0 && pic.id%50===1  )
+        setPhotos(fiftyPhotos);    
     }, [])
         return (
             <div>
@@ -42,7 +47,7 @@ export default function Gallery() {
                {
                    photos.length>0 && photos.filter((pic,index)=>index<counter*10).map((photo : any)=>[
                     <Grid item xs={12} md={6} lg={4} key={photo.id}>
-                            <img src={photo.url} alt=""/>
+                            <img src={photo.url} alt="" className={classes.img}/>
                     </Grid>   
                    ])
                }         
